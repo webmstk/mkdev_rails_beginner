@@ -12,11 +12,11 @@ html
       nav.navbar.navbar-default
         .container-fluid
           .navbar-header
-            a.navbar-brand href="#"  Флэшкарточкер
+            = link_to 'Флэшкарточкер', root_path, class: 'navbar-brand'
           #navbar.navbar-collapse.collapse
             ul.nav.navbar-nav.navbar-right
               li
-                = link_to 'Все карточки'
+                = link_to 'Все карточки', cards_path
               li
                 = link_to 'Добавить карточку'
 
