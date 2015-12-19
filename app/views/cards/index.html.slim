@@ -2,11 +2,12 @@ p style='font-size: 22px;' Первый в мире удобный менедж�
 
 br
 
-table.table
+table.table.table-striped.table-hover
   tr
     th Текст
     th Перевод
-    th Дата перевода
+    th Дата пересмотра
+    th
   - @cards.each do |card|
     tr
       td
@@ -15,3 +16,10 @@ table.table
         = card.translated_text
       td
         = card.review_date.strftime('%d/%m/%Y')
+      td style='text-align: right'
+        = link_to 'редактировать', edit_card_path(card), class: 'btn btn-default btn-xs'
+        = ' '
+        = link_to 'удалить', card_path(card), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: 'Точно удалить?' }
+
+.form-actions
+  = link_to 'Новая карточка', new_card_path, class: 'btn btn-primary'

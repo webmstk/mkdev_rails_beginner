@@ -18,11 +18,16 @@ html
               li
                 = link_to 'Все карточки', cards_path
               li
-                = link_to 'Добавить карточку'
+                = link_to 'Добавить карточку', new_card_path
 
       section#container
         header.clearfix
           h1 Флэшкарточкер
+
+        - flash.each do |name, msg|
+          div class="alert alert-#{name == 'notice' ? 'success' : 'danger'}"
+            button type='button' class='close' data-dismiss='alert' aria-hidden='true' &times;
+            = msg
 
         section
           = yield

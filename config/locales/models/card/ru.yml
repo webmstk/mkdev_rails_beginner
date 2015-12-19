@@ -1,0 +1,41 @@
+ru:
+  activerecord:
+    models:
+      card:
+        one: Карточка
+        other: Карточки
+    attributes:
+      card:
+        original_text: Текст
+        translated_text: Перевод
+        review_date: Дата пересмотра
+    errors:
+      models:
+        card:
+          attributes:
+            original_text:
+              blank: Введите текст для перевода
+            translated_text:
+              blank: Текст должен быть переведен
+              match: Перевод не может совпадать с оригинальным текстом
+            review_date:
+              blank: Не указана дата пересмотра карточки
+  helpers:
+    submit:
+      create: Создать карточку
+      update: Изменить карточку
+    label:
+      card:
+        original_text: Текст
+        translated_text: Перевод
+        review_date: Дата пересмотра
+
+  simple_form:
+    placeholders:
+      card:
+        original_text: Введите текст для перевода
+        translated_text: Переведите текст
+    required:
+#      text: 'обязательно к заполнению'
+#      mark: '*'
+      html: '*'
