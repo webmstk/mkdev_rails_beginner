@@ -34,6 +34,32 @@ class CardsController < ApplicationController
     redirect_to cards_path, notice: 'Карточка удалена' if @card.destroy
   end
 
+  def random
+    # for any DB
+    # rand_id = rand(Card.count)
+    # @card = Card.where("id >= #{rand_id}").first
+
+    # for postgresql
+    @card = Card.review.order('RANDOM()').first
+  end
+
+  def check
+    @card = Card.find(params[:card_id])
+
+    if @card.translation_correct?(params[:card][:translated_text])
+      @card.set_review_date.save
+      redirect_to card_random_path, notice: 'Правильно'
+    else
+      if params[:card][:translated_text].empty?
+        flash.now[:error] = 'Поле не может быть пустым'
+      else
+        flash.now[:error] = "<b>Текст:</b> #{@card.original_text}<br />
+                             <b>Правильно:</b> #{@card.translated_text}".html_safe
+      end
+
+      render :random
+    end
+  end
 
   private
 

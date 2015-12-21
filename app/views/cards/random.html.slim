@@ -1,0 +1,11 @@
+- if @card
+  p
+    b = @card.original_text
+  br
+
+  = simple_form_for Card.new, url: card_check_path(@card), method: :post do |f|
+    = f.input :translated_text
+    = f.submit 'Проверить перевод', class: 'btn btn-primary'
+
+- else
+  p Отдыхай, ты проработал все карточки на сегодня.
