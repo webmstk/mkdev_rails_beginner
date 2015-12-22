@@ -11,6 +11,7 @@ FactoryGirl.define do
     original_text
     translated_text
     review_date { 3.days.from_now }
+    user
 
     trait :expired do
       review_date { 3.days.ago }

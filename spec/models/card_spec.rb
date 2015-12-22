@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Card, type: :model do
+  it { should belong_to :user }
+  it { should validate_presence_of :user_id }
 
   describe '#translation_correct?' do
     let(:card) { build :card, translated_text: 'hello' }
@@ -19,7 +21,7 @@ RSpec.describe Card, type: :model do
     let(:date) { Time.now }
     let!(:card) { build :card, review_date: date }
 
-    it 'change review_date to 3 days since now' do
+    it 'changes review_date to 3 days since now' do
       expect(Time).to receive(:now).and_return(date)
       expect(card.set_review_date.review_date).to eq (date + 3.days)
     end
