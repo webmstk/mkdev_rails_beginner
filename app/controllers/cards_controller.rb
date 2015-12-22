@@ -48,7 +48,7 @@ class CardsController < ApplicationController
 
     if @card.translation_correct?(params[:card][:translated_text])
       @card.set_review_date.save
-      redirect_to card_random_path, notice: 'Правильно'
+      redirect_to random_cards_path, notice: 'Правильно'
     else
       if params[:card][:translated_text].empty?
         flash.now[:error] = 'Поле не может быть пустым'

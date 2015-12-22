@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   root 'cards#random'
 
   resources :cards, except: :show do
-    get :random
+    collection do
+      get :random
+    end
     post :check
   end
 
