@@ -1,0 +1,11 @@
+h4 Авторизация
+
+= simple_form_for @user, url: user_sessions_path do |f|
+  = f.input :email, required: false
+  = f.input :password, required: false
+  = f.submit 'Авторизоваться', class: 'btn btn-primary'
+
+br
+= link_to 'Войти через twitter', auth_at_provider_path(provider: :twitter)
+br
+= link_to 'Войти через facebook', auth_at_provider_path(provider: :facebook)

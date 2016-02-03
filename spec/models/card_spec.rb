@@ -35,7 +35,7 @@ RSpec.describe Card, type: :model do
   describe '#text_and_translate_does_not_match' do
     let(:card) { build :card, original_text: 'привет', translated_text: 'ПриВет' }
 
-    it 'sets an error if translated_text equal to original_text' do
+    it 'sets an error if translated_text is equal to original_text' do
       card.text_and_translate_does_not_match
       expect(card.errors.messages[:translated_text]).to include 'Перевод не может совпадать с оригинальным текстом'
     end

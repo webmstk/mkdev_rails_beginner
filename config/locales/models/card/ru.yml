@@ -22,9 +22,10 @@ ru:
               blank: Не указана дата пересмотра карточки
   helpers:
     submit:
-      create: Создать карточку
-      update: Изменить карточку
-    label:
+      card:
+        create: Создать карточку
+        update: Изменить карточку
+    labels:
       card:
         original_text: Текст
         translated_text: Перевод

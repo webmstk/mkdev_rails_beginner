@@ -1,0 +1,12 @@
+/= debug @user
+/= debug @user.crypted_password_change[0] if @user.crypted_password_changed?
+/- if @user.crypted_password
+/  p sadf
+
+= simple_form_for @user do |f|
+  = f.input :email
+  /- if @user.crypted_password && @user.crypted_password_changed?(from: '')
+  /= f.input :old_password, input_html: { value: @user.old_password }
+  = f.input :password, input_html: { value: @user.password }
+  = f.input :password_confirmation, input_html: { value: @user.password_confirmation }
+  = f.submit nil, class: 'btn btn-primary'

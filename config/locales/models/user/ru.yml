@@ -1,0 +1,33 @@
+ru:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: Email не может быть пустым
+            password:
+              blank: Пароль не должен быть пустым
+            password_confirmation:
+              confirmation: Пароли не совпадают
+              blank: Подтвердите пароль
+            old_password:
+              blank: Введите текущий пароль
+              match: Неправильный пароль
+  helpers:
+    submit:
+      user:
+        create: Зарегистрироваться
+        update: Изменить данные
+  simple_form:
+    labels:
+      user:
+        edit:
+          email: Email
+          old_password: Старый пароль
+          password: Новый пароль
+          password_confirmation: Подтвердите новый пароль
+        new:
+          email: Email
+          password: Пароль
+          password_confirmation: Подтверждение пароля

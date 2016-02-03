@@ -9,7 +9,7 @@ html
   body
 
     #wrap.container
-      nav.navbar.navbar-default
+      nav.navbar.navbar-default.my-navbar
         .container-fluid
           .navbar-header
             = link_to 'Флэшкарточкер', root_path, class: 'navbar-brand'
@@ -19,6 +19,21 @@ html
                 = link_to 'Все карточки', cards_path
               li
                 = link_to 'Добавить карточку', new_card_path
+
+      .row
+        .col-md-8
+        .col-md-4.text-right.auth_status
+          - if current_user
+            .glyphicon.glyphicon-user
+            = link_to current_user.email, edit_user_path(current_user)
+            = ' '
+            = link_to logout_path, method: :post do
+              .glyphicon.glyphicon-log-out
+          - else
+            = link_to 'Регистрация', new_user_path
+            = ' '
+            = link_to 'Вход', login_path
+
 
       section#container
         header.clearfix
