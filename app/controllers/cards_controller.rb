@@ -2,7 +2,7 @@ class CardsController < ApplicationController
   before_action :load_card, only: [:edit, :update, :destroy]
 
   def index
-    @cards = Card.all
+    @cards = logged_in? ? Card.where(user: current_user) : []
   end
 
   def new
@@ -12,10 +12,17 @@ class CardsController < ApplicationController
   def create
     @card = Card.new(card_params)
 
-    if @card.save
-      redirect_to cards_path
+    if logged_in?
+      @card.user = current_user
+      
+      if @card.save
+        redirect_to cards_path
+      else
+        render :new
+      end
     else
-      render :new
+      redirect_to new_card_path
+      flash[:error] = 'Залогиньтесь!'
     end
   end
 
@@ -23,15 +30,36 @@ class CardsController < ApplicationController
   end
 
   def update
-    if @card.update(card_params)
-      redirect_to cards_path
+    if logged_in?
+      if @card.user_id == current_user.id
+        if @card.update(card_params)
+          redirect_to edit_card_path(@card)
+          flash[:notice] = 'Данные успешно обновлены'
+        else
+          render :edit
+        end
+      else
+        redirect_to edit_card_path(@card)
+        flash[:error] = 'Нельзя изменять чужие карточки!'
+      end
     else
-      render :edit
+      redirect_to edit_card_path(@card)
+      flash[:error] = 'Залогиньтесь!'
     end
   end
 
   def destroy
-    redirect_to cards_path, notice: 'Карточка удалена' if @card.destroy
+    if logged_in?
+      if @card.user_id == current_user.id
+        redirect_to cards_path, notice: 'Карточка удалена' if @card.destroy
+      else
+        redirect_to cards_path
+        flash[:error] = 'Нельзя удалить чужую карточку!'
+      end
+    else
+      redirect_to cards_path
+      flash[:error] = 'Залогиньтесь!'
+    end
   end
 
   def random
@@ -40,7 +68,8 @@ class CardsController < ApplicationController
     # @card = Card.where("id >= #{rand_id}").first
 
     # for postgresql
-    @card = Card.review.order('RANDOM()').first
+    # @card = Card.review.where(user: current_user).order('RANDOM()').first
+    @card = current_user.cards.review.order('RANDOM()').first
   end
 
   def check

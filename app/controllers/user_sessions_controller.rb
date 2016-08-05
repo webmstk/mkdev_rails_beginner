@@ -4,7 +4,7 @@ class UserSessionsController < ApplicationController
   end
 
   def create
-    if @user = login(params[:user][:email], params[:user][:password])
+    if (@user = login(params[:user][:email], params[:user][:password]))
       redirect_back_or_to :root, notice: 'Вы успешно авторизовались'
     else
       @user = User.new(login_attributes)

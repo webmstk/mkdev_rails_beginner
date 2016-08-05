@@ -1,8 +1,11 @@
 require 'rails_helper'
 
 feature 'get learn with random cards' do
+  given(:user) { create :user }
+  
   describe 'there are no cards to translate' do
     scenario 'user sees message that all cards have been translated' do
+      login user
       visit random_cards_path
       expect(page).to have_text 'Отдыхай, ты проработал все карточки на сегодня.'
     end
@@ -10,15 +13,17 @@ feature 'get learn with random cards' do
 
 
   describe 'there are cards to translate' do
-    given!(:card) { create :card }
-    given!(:expired_card) { create :expired_card }
+    given!(:card) { create :card, user: user }
+    given!(:expired_card) { create :expired_card, user: user }
 
     scenario 'user sees random card with expired review date' do
+      login user
       visit random_cards_path
       expect(page).to have_text expired_card.original_text
     end
 
     scenario 'user cannot see cards with not expired review date' do
+      login user
       visit random_cards_path
       expect(page).to_not have_text card.original_text
     end
@@ -27,6 +32,7 @@ feature 'get learn with random cards' do
     describe 'user translates card' do
       context 'correctly' do
         scenario 'and gets a new card' do
+          login user
           visit random_cards_path
           fill_in 'Перевод', with: expired_card.translated_text
           click_on 'Проверить перевод'
@@ -39,6 +45,7 @@ feature 'get learn with random cards' do
 
       context 'incorrectly' do
         scenario 'and gets error message if translation is not provided' do
+          login user
           visit random_cards_path
           fill_in 'Перевод', with: ''
           click_on 'Проверить перевод'
@@ -49,6 +56,7 @@ feature 'get learn with random cards' do
         end
 
         scenario 'and gets message with correct translation' do
+          login user
           visit random_cards_path
           fill_in 'Перевод', with: 'Wrong translation'
           click_on 'Проверить перевод'

@@ -6,6 +6,7 @@ ru:
           attributes:
             email:
               blank: Email не может быть пустым
+              format: Неправильный формат
             password:
               blank: Пароль не должен быть пустым
             password_confirmation:

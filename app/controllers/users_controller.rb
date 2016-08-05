@@ -2,7 +2,11 @@ class UsersController < ApplicationController
   before_action :load_user, only: [:edit, :update, :destroy]
 
   def index
-    @users = User.all
+    if Rails.env.development?
+      @users = User.all
+    else
+      render nothing: true
+    end
   end
 
   def new

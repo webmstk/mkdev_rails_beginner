@@ -111,12 +111,12 @@ Rails.application.config.sorcery.configure do |config|
   # make sure you use 0.0.0.0:3000 to access your app in development
   #
   config.twitter.key = "IA7CPmAQYjAKf4XhOEDayjRQu"
-  config.twitter.secret = "fM6CUu5FFvFPvMLBHy2pcZ5NsVTGw2hQUQloWf181r0670jONQ"
+  config.twitter.secret = ENV['TWITTER_SECRET']
   config.twitter.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=twitter"
   config.twitter.user_info_mapping = {:email => "screen_name"}
   #
   config.facebook.key = "1051965654864330"
-  config.facebook.secret = "1f27b3bbb7a6d5d550f7d716112ddf48"
+  config.facebook.secret = ENV['FACEBOOK_SECRET']
   config.facebook.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=facebook"
   config.facebook.user_info_path = "me?fields=email"
   config.facebook.user_info_mapping = {:email => "email"}

@@ -17,6 +17,7 @@
 
 # Ignore configs
 /config/database.yml
+/.env
 
 # Other
 .idea
