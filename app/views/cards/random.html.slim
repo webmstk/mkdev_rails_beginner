@@ -1,4 +1,9 @@
 - if @card
+  - if @card.image?
+    = image_tag @card.image.url
+    br
+    br
+
   p
     b = @card.original_text
   br

@@ -4,12 +4,15 @@ br
 
 table.table.table-striped.table-hover.cards_table
   tr
+    th Картинка
     th Текст
     th Перевод
     th Дата пересмотра
     th.controls
   - @cards.each do |card|
     tr
+      td
+        = image_tag card.image.tiny.url if card.image?
       td
         = card.original_text
       td

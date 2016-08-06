@@ -1,4 +1,12 @@
 = simple_form_for(@card) do |f|
   = f.input :original_text
   = f.input :translated_text
+  = f.input :image
+  - if @card.image?
+    = image_tag @card.image.url
+    br
+    = f.check_box :remove_image
+    = f.label :remove_image
+    br
+  br
   = f.submit nil, class: 'btn btn-primary'

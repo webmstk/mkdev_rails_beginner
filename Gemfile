@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'slim-rails'
 gem 'simple_form'
 gem 'sorcery'
+gem 'carrierwave'
+gem 'mini_magick'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'
