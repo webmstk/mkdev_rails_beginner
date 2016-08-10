@@ -8,6 +8,7 @@ FactoryGirl.define do
   end
 
   factory :card do
+    deck
     original_text
     translated_text
     review_date { 3.days.from_now }

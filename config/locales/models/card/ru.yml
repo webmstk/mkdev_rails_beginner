@@ -11,6 +11,7 @@ ru:
         review_date: Дата пересмотра
         image: Картинка
         remove_image: удалить картинку
+        deck_id: Колода
     errors:
       models:
         card:
@@ -22,6 +23,8 @@ ru:
               match: Перевод не может совпадать с оригинальным текстом
             review_date:
               blank: Не указана дата пересмотра карточки
+            deck_id:
+              blank: Не указана колода
   helpers:
     submit:
       card:

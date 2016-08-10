@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
+  resources :decks, except: :show do
+    put :current, on: :member
+  end
+
   get 'user_sessions/new'
-
   get 'user_sessions/create'
-
   get 'user_sessions/destroy'
 
   root 'cards#random'

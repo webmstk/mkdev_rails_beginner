@@ -1,0 +1,16 @@
+ru:
+  activerecord:
+    attributes:
+      deck:
+        name: Название
+    errors:
+      models:
+        deck:
+          attributes:
+            name:
+              blank: Введите название колоды
+  helpers:
+    submit:
+      deck:
+        create: Создать колоду
+        update: Редактировать колоду

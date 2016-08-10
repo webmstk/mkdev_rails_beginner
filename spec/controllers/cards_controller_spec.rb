@@ -5,6 +5,7 @@ RSpec.describe CardsController, type: :controller do
   let(:other_user) { create :user }
   let!(:card) { create :card, :expired, user: user }
   let!(:other_card) { create :card, :expired, user: other_user }
+  let(:deck) { create :deck }
 
   before { login_user user }
 
@@ -37,28 +38,28 @@ RSpec.describe CardsController, type: :controller do
       before { logout_user }
 
       it 'does not save card in the database' do
-        expect { post :create, card: attributes_for(:card) }.to_not change(Card, :count)
+        expect { post :create, card: attributes_for(:card, deck_id: deck) }.to_not change(Card, :count)
       end
 
       it 'redirects to new_card_path' do
-        post :create, card: attributes_for(:card)
+        post :create, card: attributes_for(:card, deck_id: deck)
         expect(response).to redirect_to new_card_path
       end
 
       it 'renders error message' do
-        post :create, card: attributes_for(:card)
+        post :create, card: attributes_for(:card, deck_id: deck)
         expect(flash[:error]).to eq 'Залогиньтесь!'
       end
     end
 
     context 'authorized' do
       it 'saves card in the database' do
-        expect { post :create, card: attributes_for(:card) }.to change(Card, :count).by 1
+        expect { post :create, card: attributes_for(:card, deck_id: deck) }.to change(Card, :count).by 1
       end
 
       it 'belongs to user' do
-        post :create, card: attributes_for(:card)
-        expect(assigns(:card).user_id).to eq user.id
+        post :create, card: attributes_for(:card, deck_id: deck)
+        expect(Card.last.user_id).to eq user.id
       end
     end
   end

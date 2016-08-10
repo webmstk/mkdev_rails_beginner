@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160806073851) do
+ActiveRecord::Schema.define(version: 20160806162406) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,9 +34,18 @@ ActiveRecord::Schema.define(version: 20160806073851) do
     t.datetime "updated_at",      null: false
     t.integer  "user_id"
     t.string   "image"
+    t.integer  "deck_id"
   end
 
+  add_index "cards", ["deck_id"], name: "index_cards_on_deck_id", using: :btree
   add_index "cards", ["user_id"], name: "index_cards_on_user_id", using: :btree
+
+  create_table "decks", force: :cascade do |t|
+    t.string   "name",                       null: false
+    t.boolean  "current",    default: false, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",            null: false
@@ -48,5 +57,6 @@ ActiveRecord::Schema.define(version: 20160806073851) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "cards", "decks"
   add_foreign_key "cards", "users"
 end

@@ -1,0 +1,19 @@
+table.table.table-striped.table-hover.decks_table
+  tr
+    th Колода
+    th.center Текущая
+    th
+  - if @decks.any?
+      - @decks.each do |deck|
+        tr
+          td
+            = deck.name
+          td.center
+            = radio_button_tag :current, deck.id, deck.current?, autocomplete: :off
+          td style='text-align: right'
+            = link_to 'редактировать', edit_deck_path(deck), class: 'btn btn-default btn-xs'
+            = ' '
+            = link_to 'удалить', deck_path(deck), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: 'Точно удалить?' }
+
+.form-actions
+  = link_to 'Новая колода', new_deck_path, class: 'btn btn-primary'
