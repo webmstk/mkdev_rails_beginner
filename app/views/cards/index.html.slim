@@ -5,6 +5,7 @@ br
 table.table.table-striped.table-hover.cards_table
   tr
     th Картинка
+    th Колода
     th Текст
     th Перевод
     th Дата пересмотра
@@ -13,6 +14,8 @@ table.table.table-striped.table-hover.cards_table
     tr
       td
         = image_tag card.image.tiny.url if card.image?
+      td
+        = card.deck&.name
       td
         = card.original_text
       td
