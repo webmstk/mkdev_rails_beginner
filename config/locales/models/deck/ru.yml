@@ -9,8 +9,14 @@ ru:
           attributes:
             name:
               blank: Введите название колоды
+            user_id:
+              blank: Колода должна принадлежать пользователю
   helpers:
     submit:
       deck:
         create: Создать колоду
         update: Редактировать колоду
+
+  deck_deleted: Колода удалена
+  deck_not_deleted: Не получилось удалить колоду
+  deck_created: Колода создана

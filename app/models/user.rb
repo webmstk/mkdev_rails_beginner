@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   attr_accessor :old_password
 
   has_many :cards
+  has_many :decks
   has_many :authentications, dependent: :destroy
 
   accepts_nested_attributes_for :authentications

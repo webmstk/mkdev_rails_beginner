@@ -69,7 +69,12 @@ class CardsController < ApplicationController
 
     # for postgresql
     # @card = Card.review.where(user: current_user).order('RANDOM()').first
-    @card = current_user.cards.review.order('RANDOM()').first
+
+    @card = if current_user
+              current_user.cards.review.order('RANDOM()').first
+            else
+              Card.review.order('RANDOM()').first
+            end
   end
 
   def check

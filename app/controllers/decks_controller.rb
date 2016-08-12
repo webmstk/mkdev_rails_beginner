@@ -2,7 +2,7 @@ class DecksController < ApplicationController
   before_action :load_deck, only: [:edit, :update, :destroy, :current]
 
   def index
-    @decks = Deck.ordered
+    @decks = current_user.decks.ordered
   end
 
   def new
@@ -11,8 +11,9 @@ class DecksController < ApplicationController
 
   def create
     @deck = Deck.new deck_params
+    @deck.user = current_user
     if @deck.save
-      redirect_to decks_path, notice: 'Колода создана'
+      redirect_to decks_path, notice: t(:deck_created)
     else
       render :new
     end
@@ -31,15 +32,15 @@ class DecksController < ApplicationController
 
   def destroy
     if @deck.destroy
-      redirect_to decks_path, notice: 'Колода удалена'
+      redirect_to decks_path, notice: t(:deck_deleted)
     else
       redirect_to decks_path
-      flash[:error] = 'Не получилось удалить колоду'
+      flash[:error] = t(:deck_not_deleted)
     end
   end
 
   def current
-    if @deck.set_current
+    if @deck.set_current current_user
       render json: { status: 'ok' }
     else
       render json: { status: 'fail' }

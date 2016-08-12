@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   it { should have_many :cards }
+  it { should have_many :decks }
   it { should have_many :authentications }
   it { should validate_presence_of :email }
   it { should allow_value('test@mail.ru').for :email }
