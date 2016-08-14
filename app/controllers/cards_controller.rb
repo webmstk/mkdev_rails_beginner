@@ -81,17 +81,21 @@ class CardsController < ApplicationController
     @card = Card.find(params[:card_id])
 
     if @card.translation_correct?(params[:card][:translated_text])
-      @card.set_review_date.save
+      @card.success_up
+      @card.delay_review_date
       redirect_to random_cards_path, notice: 'Правильно'
     else
       if params[:card][:translated_text].empty?
         flash.now[:error] = 'Поле не может быть пустым'
+        render :random
       else
-        flash.now[:error] = "<b>Текст:</b> #{@card.original_text}<br />
-                             <b>Правильно:</b> #{@card.translated_text}".html_safe
+        @card.attempts_recalc
+        redirect_to random_cards_path
+        flash[:error] = "<b>Текст:</b> #{@card.original_text}<br />
+                         <b>Правильно:</b> #{@card.translated_text}<br />
+                         <b>А ты ввёл:</b> #{params[:card][:translated_text]}<br /><br />
+                         Учи следующую карточку, лопух!"
       end
-
-      render :random
     end
   end
 

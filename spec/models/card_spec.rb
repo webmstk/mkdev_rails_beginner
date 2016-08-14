@@ -1,10 +1,21 @@
 require 'rails_helper'
 
 RSpec.describe Card, type: :model do
+  let(:date) { Time.now }
+  let(:card) { create :card, review_date: date }
+
   it { should belong_to :user }
   it { should belong_to :deck }
   it { should validate_presence_of :deck_id }
   # it { should validate_presence_of :user_id }
+
+  describe '.create' do
+    it 'sets review_date to today if nil' do
+      allow(Time).to receive(:now).and_return(date)
+      card.save
+      expect(card.review_date).to eq date
+    end
+  end
 
   describe '#translation_correct?' do
     let(:card) { build :card, translated_text: 'hello' }
@@ -20,16 +31,80 @@ RSpec.describe Card, type: :model do
 
 
   describe '#set_review_date' do
-    let(:date) { Time.now }
-    let!(:card) { build :card, review_date: date }
-
-    it 'changes review_date to 3 days since now' do
-      expect(Time).to receive(:now).and_return(date)
-      expect(card.set_review_date.review_date).to eq (date + 3.days)
+    Card::REVIEW_DELAY_DAYS.each do |success, delay|
+      it "success #{success} delays to #{delay} days" do
+        card.update review_date: date, success: success
+        allow(Time).to receive(:now).and_return(date)
+        card.delay_review_date
+        expect(card.review_date).to eq date + delay.days
+      end
     end
 
-    it 'returns self object' do
-      expect(card.set_review_date).to eq card
+    it "success #{Card::REVIEW_DELAY_DAYS.keys.last + 1} delays to #{Card::REVIEW_DELAY_DAYS.values.last} days" do
+      card.update review_date: date, success: Card::REVIEW_DELAY_DAYS.keys.last + 1
+      allow(Time).to receive(:now).and_return(date)
+      card.delay_review_date
+      expect(card.review_date).to eq date + Card::REVIEW_DELAY_DAYS.values.last.days
+    end
+  end
+
+
+  describe '#success_up' do
+    it 'increments success by 1' do
+      expect { card.success_up }.to change(card, :success).by 1
+    end
+  end
+
+  
+  describe '#success_reset' do
+    before { card.update_column :success, 2 }
+
+    it 'set success to zero' do
+      card.success_reset
+      expect(card.success).to eq 0
+    end
+  end
+
+
+  describe '#attempts_up' do
+    it 'increments attempts by 1' do
+      expect { card.attempts_up }.to change(card, :attempts).by 1
+    end
+  end
+
+  
+  describe '#attempts_reset' do
+    before { card.update_column :attempts, 2 }
+
+    it 'set attempts to zero' do
+      card.attempts_reset
+      expect(card.attempts).to eq 0
+    end
+  end
+
+
+  describe '#attempts_recalc' do
+    context "attempts less than #{Card::GUESS_ATTEMPTS}" do
+      before { card.update attempts: 0 }
+
+      it 'invokes #attempts_up' do
+        expect(card).to receive(:attempts_up)
+        card.attempts_recalc
+      end
+    end
+
+    context "attempts over or equal #{Card::GUESS_ATTEMPTS}" do
+      before { card.update attempts: Card::GUESS_ATTEMPTS }
+
+      it 'invokes #attempts_reset' do
+        expect(card).to receive(:attempts_reset)
+        card.attempts_recalc
+      end
+
+      it 'invokes #success_reset' do
+        expect(card).to receive(:success_reset)
+        card.attempts_recalc
+      end
     end
   end
 

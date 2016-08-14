@@ -61,7 +61,7 @@ feature 'get learn with random cards' do
           fill_in 'Перевод', with: 'Wrong translation'
           click_on 'Проверить перевод'
 
-          expect(current_path).to eq card_check_path(expired_card)
+          expect(current_path).to eq random_cards_path
           expect(page).to have_text "Правильно: #{expired_card.translated_text}"
           expect(page).to have_text expired_card.original_text
         end

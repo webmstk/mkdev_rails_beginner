@@ -62,6 +62,7 @@ group :test do
   gem 'capybara'
   gem 'launchy'
   gem 'poltergeist'
+  gem 'timecop'
 end
 
 ruby '2.3.0'
