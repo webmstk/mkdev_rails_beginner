@@ -5,6 +5,7 @@ gem 'simple_form'
 gem 'sorcery'
 gem 'carrierwave'
 gem 'mini_magick'
+gem 'levenshtein-ffi', require: 'levenshtein'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5'

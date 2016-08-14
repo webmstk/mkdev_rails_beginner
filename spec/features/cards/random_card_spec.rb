@@ -13,8 +13,8 @@ feature 'get learn with random cards' do
 
 
   describe 'there are cards to translate' do
-    given!(:card) { create :card, user: user }
-    given!(:expired_card) { create :expired_card, user: user }
+    let!(:card) { create :card, user: user }
+    let!(:expired_card) { create :expired_card, user: user }
 
     scenario 'user sees random card with expired review date' do
       login user
@@ -64,6 +64,18 @@ feature 'get learn with random cards' do
           expect(current_path).to eq random_cards_path
           expect(page).to have_text "Правильно: #{expired_card.translated_text}"
           expect(page).to have_text expired_card.original_text
+        end
+      end
+
+      context 'typo' do
+        scenario 'user makes a typo in translation' do
+          login user
+          visit random_cards_path
+          fill_in 'Перевод', with: expired_card.translated_text + 's'
+          click_on 'Проверить перевод'
+
+          expect(current_path).to eq random_cards_path
+          expect(page).to have_text 'Опечатка'
         end
       end
     end

@@ -68,7 +68,13 @@ class Card < ActiveRecord::Base
     end
   end
 
-  def translation_correct?(translation)
+  def translation_correct? translation
     translated_text.casecmp(translation) == 0
+  end
+
+  def typo_in_translation? translation
+    levenshtein = Levenshtein.distance(translated_text.mb_chars.downcase.to_s, translation.mb_chars.downcase.to_s)
+    return nil if levenshtein.zero?
+    levenshtein == 1
   end
 end

@@ -138,4 +138,27 @@ RSpec.describe Card, type: :model do
     end
   end
 
+
+  describe '#typo_in_translation?' do
+    before { card.update_column :translated_text, 'aaa' }
+  
+    context 'typo' do
+      it 'returns true' do
+        expect(card.typo_in_translation? 'aab').to eq true
+      end
+    end
+
+    context 'match' do
+      it 'returns nil' do
+        expect(card.typo_in_translation? 'aaa').to eq nil
+      end
+    end
+
+    context 'wrong' do
+      it 'returns false' do
+        expect(card.typo_in_translation? 'bbb').to eq false
+      end
+    end
+  end
+
 end

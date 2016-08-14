@@ -80,9 +80,16 @@ class CardsController < ApplicationController
   def check
     @card = Card.find(params[:card_id])
 
-    if @card.translation_correct?(params[:card][:translated_text])
+    if @card.translation_correct? params[:card][:translated_text]
       @card.translated_correct
       redirect_to random_cards_path, notice: 'Правильно'
+    elsif @card.typo_in_translation? params[:card][:translated_text]
+      @card.translated_correct
+      redirect_to random_cards_path
+      flash[:notice] = "<b>Текст:</b> #{@card.original_text}<br />
+                       <b>Правильно:</b> #{@card.translated_text}<br />
+                       <b>А ты ввёл:</b> #{params[:card][:translated_text]}<br /><br />
+                       Опечатка, однако!"
     else
       if params[:card][:translated_text].empty?
         flash.now[:error] = 'Поле не может быть пустым'
