@@ -66,6 +66,19 @@ RSpec.describe Card, type: :model do
   end
 
 
+  describe '#translated_correct' do
+    it 'invokes #success_up' do
+      expect(card).to receive(:success_up)
+      card.translated_correct
+    end
+
+    it 'invokes #delay_review_date' do
+      expect(card).to receive(:delay_review_date)
+      card.translated_correct
+    end
+  end
+
+
   describe '#attempts_up' do
     it 'increments attempts by 1' do
       expect { card.attempts_up }.to change(card, :attempts).by 1

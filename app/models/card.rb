@@ -46,6 +46,11 @@ class Card < ActiveRecord::Base
     self.update! success: 0
   end
 
+  def translated_correct
+    success_up
+    delay_review_date
+  end
+
   def attempts_up
     self.update! attempts: attempts.next
   end

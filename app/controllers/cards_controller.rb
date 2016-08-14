@@ -81,8 +81,7 @@ class CardsController < ApplicationController
     @card = Card.find(params[:card_id])
 
     if @card.translation_correct?(params[:card][:translated_text])
-      @card.success_up
-      @card.delay_review_date
+      @card.translated_correct
       redirect_to random_cards_path, notice: 'Правильно'
     else
       if params[:card][:translated_text].empty?
