@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validate :check_old_password, on: :update, if: -> { new_record? || changes[:crypted_password] }
 
+  # scope :with_pending_cards, -> { User.where('users.id IN (?)', Card.review.where.not(user_id: nil).map(&:user_id).uniq) }
+  scope :with_pending_cards, -> { User.joins(:cards).merge(Card.review) }
 
   def check_old_password
     persisted_user = User.find id
@@ -29,6 +31,12 @@ class User < ActiveRecord::Base
       elsif !persisted_user.valid_password?(old_password)
         errors.add(:old_password, I18n.t('activerecord.errors.models.user.attributes.old_password.match'))
       end
+    end
+  end
+
+  def self.notify_pending_cards
+    User.with_pending_cards.each do |user|
+      NotificationMailer.pending_cards(user).deliver_later
     end
   end
 end

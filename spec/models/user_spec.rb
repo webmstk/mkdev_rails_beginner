@@ -17,6 +17,21 @@ RSpec.describe User, type: :model do
                              password: '123',
                              password_confirmation: '123' }
 
+
+  describe '.notify_pending_cards' do
+    let(:user1) { create :user }
+    let!(:card1) { create :expired_card, user: user1 }
+    let(:user2) { create :user }
+    let!(:card2) { create :card, user: user2 }
+    
+    it 'invokes NotificationMailer.pending_cards for user with expired cards' do
+      expect(NotificationMailer).to receive(:pending_cards).with(user1).and_call_original
+      expect_any_instance_of(ActionMailer::MessageDelivery).to receive(:deliver_later)
+      User.notify_pending_cards
+    end
+  end
+
+
   describe '#update' do
     it 'update attributes' do
       user.update email: 'test222@mail.ru'
@@ -24,6 +39,7 @@ RSpec.describe User, type: :model do
       expect(user.email).to eq 'test222@mail.ru'
     end
   end
+
 
   describe 'authentication' do
     context 'user had no password before' do

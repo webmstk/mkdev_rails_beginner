@@ -92,7 +92,7 @@ Rails.application.config.sorcery.configure do |config|
   #
   # config.linkedin.key = ""
   # config.linkedin.secret = ""
-  # config.linkedin.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=linkedin"
+  # config.linkedin.callback_url = "http://0.0.0.0:4000/oauth/callback?provider=linkedin"
   # config.linkedin.user_info_fields = ['first-name', 'last-name']
   # config.linkedin.user_info_mapping = {first_name: "firstName", last_name: "lastName"}
   # config.linkedin.access_permissions = ['r_basicprofile']
@@ -103,21 +103,21 @@ Rails.application.config.sorcery.configure do |config|
   #
   # config.xing.key = ""
   # config.xing.secret = ""
-  # config.xing.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=xing"
+  # config.xing.callback_url = "http://0.0.0.0:4000/oauth/callback?provider=xing"
   # config.xing.user_info_mapping = {first_name: "first_name", last_name: "last_name"}
   #
   #
   # Twitter will not accept any requests nor redirect uri containing localhost,
-  # make sure you use 0.0.0.0:3000 to access your app in development
+  # make sure you use 0.0.0.0:4000 to access your app in development
   #
   config.twitter.key = "IA7CPmAQYjAKf4XhOEDayjRQu"
   config.twitter.secret = ENV['TWITTER_SECRET']
-  config.twitter.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=twitter"
+  config.twitter.callback_url = "https://pacific-taiga-56343.herokuapp.com/oauth/callback?provider=twitter"
   config.twitter.user_info_mapping = {:email => "screen_name"}
   #
   config.facebook.key = "1051965654864330"
   config.facebook.secret = ENV['FACEBOOK_SECRET']
-  config.facebook.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=facebook"
+  config.facebook.callback_url = "https://pacific-taiga-56343.herokuapp.com/oauth/callback?provider=facebook"
   config.facebook.user_info_path = "me?fields=email"
   config.facebook.user_info_mapping = {:email => "email"}
   config.facebook.access_permissions = ["email", "publish_actions"]
@@ -126,17 +126,17 @@ Rails.application.config.sorcery.configure do |config|
   #
   # config.github.key = ""
   # config.github.secret = ""
-  # config.github.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=github"
+  # config.github.callback_url = "http://0.0.0.0:4000/oauth/callback?provider=github"
   # config.github.user_info_mapping = {:email => "name"}
   #
   # config.google.key = ""
   # config.google.secret = ""
-  # config.google.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=google"
+  # config.google.callback_url = "http://0.0.0.0:4000/oauth/callback?provider=google"
   # config.google.user_info_mapping = {:email => "email", :username => "name"}
   #
   # config.vk.key = ""
   # config.vk.secret = ""
-  # config.vk.callback_url = "http://0.0.0.0:3000/oauth/callback?provider=vk"
+  # config.vk.callback_url = "http://0.0.0.0:4000/oauth/callback?provider=vk"
   # config.vk.user_info_mapping = {:login => "domain", :name => "full_name"}
   #
   # To use liveid in development mode you have to replace mydomain.com with
@@ -145,7 +145,7 @@ Rails.application.config.sorcery.configure do |config|
   #
   # config.liveid.key = ""
   # config.liveid.secret = ""
-  # config.liveid.callback_url = "http://mydomain.com:3000/oauth/callback?provider=liveid"
+  # config.liveid.callback_url = "http://mydomain.com:4000/oauth/callback?provider=liveid"
   # config.liveid.user_info_mapping = {:username => "name"}
 
   # For information about JIRA API:
