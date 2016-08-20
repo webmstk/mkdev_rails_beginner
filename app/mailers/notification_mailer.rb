@@ -8,6 +8,6 @@ class NotificationMailer < ApplicationMailer
   def pending_cards(user)
     @cards = user.cards
 
-    mail to: user.email, subject: 'Появились карточки к пересмотру'
+    mail to: user.email
   end
 end

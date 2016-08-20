@@ -112,12 +112,12 @@ Rails.application.config.sorcery.configure do |config|
   #
   config.twitter.key = "IA7CPmAQYjAKf4XhOEDayjRQu"
   config.twitter.secret = ENV['TWITTER_SECRET']
-  config.twitter.callback_url = "https://pacific-taiga-56343.herokuapp.com/oauth/callback?provider=twitter"
+  config.twitter.callback_url = "#{ENV['SERVER_NAME']}/oauth/callback?provider=twitter"
   config.twitter.user_info_mapping = {:email => "screen_name"}
   #
   config.facebook.key = "1051965654864330"
   config.facebook.secret = ENV['FACEBOOK_SECRET']
-  config.facebook.callback_url = "https://pacific-taiga-56343.herokuapp.com/oauth/callback?provider=facebook"
+  config.facebook.callback_url = "#{ENV['SERVER_NAME']}/oauth/callback?provider=facebook"
   config.facebook.user_info_path = "me?fields=email"
   config.facebook.user_info_mapping = {:email => "email"}
   config.facebook.access_permissions = ["email", "publish_actions"]

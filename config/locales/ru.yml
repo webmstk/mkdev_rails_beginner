@@ -3,3 +3,7 @@ ru:
     errors:
       messages:
         record_invalid: "Объект не валиден: %{errors}"
+
+  notification_mailer:
+    pending_cards:
+      subject: Появились карточки к пересмотру
