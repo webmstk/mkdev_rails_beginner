@@ -1,0 +1,7 @@
+ru:
+  notification_mailer:
+    pending_cards:
+      subject: Появились карточки к пересмотру
+      head: Пора учиться!
+      cards_to_review: Карточек к пересмотру
+      go_ahead: за дело!

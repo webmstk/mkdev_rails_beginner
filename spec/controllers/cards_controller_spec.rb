@@ -48,7 +48,7 @@ RSpec.describe CardsController, type: :controller do
 
       it 'renders error message' do
         post :create, card: attributes_for(:card, deck_id: deck)
-        expect(flash[:error]).to eq 'Залогиньтесь!'
+        expect(flash[:error]).to eq t(:login_message)
       end
     end
 
@@ -79,7 +79,7 @@ RSpec.describe CardsController, type: :controller do
 
       it 'renders error message' do
         put :update, id: card, card: attributes_for(:card)
-        expect(flash[:error]).to eq 'Залогиньтесь!'
+        expect(flash[:error]).to eq t(:login_message)
       end
     end
 
@@ -98,7 +98,7 @@ RSpec.describe CardsController, type: :controller do
       end
 
       it 'renders error message' do
-        expect(flash[:error]).to eq 'Нельзя изменять чужие карточки!'
+        expect(flash[:error]).to eq t(:card_change_no_permission)
       end
     end
     
@@ -118,7 +118,7 @@ RSpec.describe CardsController, type: :controller do
         end
 
         it 'show success message' do
-          expect(flash[:notice]).to eq 'Данные успешно обновлены'
+          expect(flash[:notice]).to eq t(:card_updated)
         end
       end
 
@@ -155,7 +155,7 @@ RSpec.describe CardsController, type: :controller do
 
       it 'renders error message' do
         delete :destroy, id: card
-        expect(flash[:error]).to eq 'Залогиньтесь!'
+        expect(flash[:error]).to eq t(:login_message)
       end
     end
 
@@ -171,7 +171,7 @@ RSpec.describe CardsController, type: :controller do
 
       it 'shows success message' do
         delete :destroy, id: card
-        expect(flash[:notice]).to eq 'Карточка удалена'
+        expect(flash[:notice]).to eq t(:card_deleted)
       end
     end
 
@@ -187,7 +187,7 @@ RSpec.describe CardsController, type: :controller do
 
       it 'rendres error message' do
         delete :destroy, id: other_card
-        expect(flash[:error]).to eq 'Нельзя удалить чужую карточку!'
+        expect(flash[:error]).to eq t(:card_delete_no_permission)
       end
     end
   end

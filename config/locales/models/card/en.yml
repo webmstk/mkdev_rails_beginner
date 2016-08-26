@@ -1,0 +1,69 @@
+en:
+  activerecord:
+    models:
+      card:
+        one: Card
+        other: Cards
+    attributes:
+      card:
+        original_text: Text
+        translated_text: Translation
+        review_date: Review date
+        image: Image
+        deck_id: Deck
+        remove_image: delete image
+    errors:
+      models:
+        card:
+          attributes:
+            original_text:
+              blank: Type translation
+            translated_text:
+              blank: Text cannot be blank
+              match: Translation is match original text
+            review_date:
+              blank: Review date cannot be blank
+            deck_id:
+              blank: Please choose deck
+  helpers:
+    submit:
+      card:
+        create: Create card
+        update: Edit card
+    labels:
+      card:
+        original_text: Text
+        translated_text: Translation
+        review_date: Review date
+
+  card_new: New card
+  card_edit: Edit card
+  card_add: Add card
+  card_updated: Card successfuly updated
+  card_deleted: Card destroyed
+  card_change_no_permission: It is not your card!
+  card_delete_no_permission: It is not your card!
+  translation_correct: Correct
+  translation_cannot_be_blank: Translation cannot be blank
+  original_text: Text
+  text_typed: Your suggestion
+  typo_happend: Typo!
+  take_new_card: Get next card, dummy!
+  check_translation: Check translation
+  choose_deck: Choose deck
+
+  cards:
+    index:
+      welcome: The best flashcarder ever! That's it.
+    random:
+      relax: Good job! No cards any more. Relax.
+
+  simple_form:
+    placeholders:
+      card:
+        original_text: Type text for translation
+        translated_text: Translate text
+    required:
+#      text: 'required field'
+#      mark: '*'
+      html: '*'

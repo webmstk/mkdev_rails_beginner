@@ -4,6 +4,16 @@ ru:
       messages:
         record_invalid: "Объект не валиден: %{errors}"
 
-  notification_mailer:
-    pending_cards:
-      subject: Появились карточки к пересмотру
+  login_message: Залогиньтесь!
+  edit: редактировать
+  delete: удалить
+  confirm_delete: Точно удалить?
+
+  layouts:
+    application:
+      title: Флэшкарточкер
+      menu_decks: Колоды
+      menu_cards: Все карточки
+      menu_add_card: Добавить карточку
+      register: Регистрация
+      log_in: Вход

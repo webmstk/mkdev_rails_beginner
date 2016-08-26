@@ -1,0 +1,36 @@
+en:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: Email can't be blank
+              format: Invalid format
+            password:
+              blank: Password can't be blank
+            password_confirmation:
+              confirmation: Passwords don't match
+              blank: Confirm password
+            old_password:
+              blank: Enter your current password
+              match: Wrong password
+  helpers:
+    submit:
+      user:
+        create: Sign up
+        update: Update settings
+  simple_form:
+    labels:
+      user:
+        edit:
+          email: Email
+          old_password: Old password
+          password: New password
+          password_confirmation: Confirm new password
+        new:
+          email: Email
+          password: Password
+          password_confirmation: Password confirmation
+
+  user_update: Settings successfully updated

@@ -1,0 +1,7 @@
+ru:
+  notification_mailer:
+    pending_cards:
+      subject: New cards to review
+      head: Time to get study!
+      cards_to_review: Cards to review
+      go_ahead: let's do it!

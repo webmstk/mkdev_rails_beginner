@@ -7,7 +7,7 @@ feature 'get learn with random cards' do
     scenario 'user sees message that all cards have been translated' do
       login user
       visit random_cards_path
-      expect(page).to have_text 'Отдыхай, ты проработал все карточки на сегодня.'
+      expect(page).to have_text t('cards.random.relax')
     end
   end
 
@@ -34,11 +34,11 @@ feature 'get learn with random cards' do
         scenario 'and gets a new card' do
           login user
           visit random_cards_path
-          fill_in 'Перевод', with: expired_card.translated_text
-          click_on 'Проверить перевод'
+          fill_in t('helpers.labels.card.translated_text'), with: expired_card.translated_text
+          click_on t(:check_translation)
 
           expect(current_path).to eq random_cards_path
-          expect(page).to have_text 'Правильно'
+          expect(page).to have_text t(:translation_correct)
           expect(page).to_not have_text expired_card.original_text
         end
       end
@@ -47,22 +47,22 @@ feature 'get learn with random cards' do
         scenario 'and gets error message if translation is not provided' do
           login user
           visit random_cards_path
-          fill_in 'Перевод', with: ''
-          click_on 'Проверить перевод'
+          fill_in t('helpers.labels.card.translated_text'), with: ''
+          click_on t(:check_translation)
 
           expect(current_path).to eq card_check_path(expired_card)
-          expect(page).to have_text 'Поле не может быть пустым'
+          expect(page).to have_text t(:translation_cannot_be_blank)
           expect(page).to have_text expired_card.original_text
         end
 
         scenario 'and gets message with correct translation' do
           login user
           visit random_cards_path
-          fill_in 'Перевод', with: 'Wrong translation'
-          click_on 'Проверить перевод'
+          fill_in t('helpers.labels.card.translated_text'), with: 'Wrong translation'
+          click_on t(:check_translation)
 
           expect(current_path).to eq random_cards_path
-          expect(page).to have_text "Правильно: #{expired_card.translated_text}"
+          expect(page).to have_text "#{t :translation_correct}: #{expired_card.translated_text}"
           expect(page).to have_text expired_card.original_text
         end
       end
@@ -71,11 +71,11 @@ feature 'get learn with random cards' do
         scenario 'user makes a typo in translation' do
           login user
           visit random_cards_path
-          fill_in 'Перевод', with: expired_card.translated_text + 's'
-          click_on 'Проверить перевод'
+          fill_in t('helpers.labels.card.translated_text'), with: expired_card.translated_text + 's'
+          click_on t(:check_translation)
 
           expect(current_path).to eq random_cards_path
-          expect(page).to have_text 'Опечатка'
+          expect(page).to have_text t(:typo_happend)
         end
       end
     end

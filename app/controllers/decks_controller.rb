@@ -20,7 +20,7 @@ class DecksController < ApplicationController
       end
     else
       redirect_to decks_path
-      flash[:error] = 'Залогиньтесь!'
+      flash[:error] = t :login_message
     end
   end
 
@@ -37,11 +37,11 @@ class DecksController < ApplicationController
         end
       else
         redirect_to edit_deck_path @deck
-        flash[:error] = 'Вы не можете редактировать чужую колоду!'
+        flash[:error] = t :deck_change_no_permission
       end
     else
       redirect_to edit_deck_path @deck
-      flash[:error] = 'Залогиньтесь!'
+      flash[:error] = t :login_message
     end
   end
 
@@ -52,15 +52,15 @@ class DecksController < ApplicationController
           redirect_to decks_path, notice: t(:deck_deleted)
         else
           redirect_to decks_path
-          flash[:error] = t(:deck_not_deleted)
+          flash[:error] = t :deck_not_deleted
         end
       else
         redirect_to decks_path
-        flash[:error] = 'Вы не можете удалить чужую колоду!'
+        flash[:error] = t :deck_delete_no_permission
       end
     else
       redirect_to decks_path
-      flash[:error] = 'Залогиньтесь!'
+      flash[:error] = t :login_message
     end
   end
 

@@ -1,7 +1,7 @@
 table.table.table-striped.table-hover.decks_table
   tr
-    th Колода
-    th.center Текущая
+    th = t '.deck'
+    th.center = t '.current'
     th
     - @decks.each do |deck|
       tr
@@ -10,9 +10,9 @@ table.table.table-striped.table-hover.decks_table
         td.center
           = radio_button_tag :current, deck.id, deck.current?, autocomplete: :off
         td style='text-align: right'
-          = link_to 'редактировать', edit_deck_path(deck), class: 'btn btn-default btn-xs'
+          = link_to t(:edit), edit_deck_path(deck), class: 'btn btn-default btn-xs'
           = ' '
-          = link_to 'удалить', deck_path(deck), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: 'Точно удалить?' }
+          = link_to t(:delete), deck_path(deck), method: :delete, class: 'btn btn-xs btn-danger', data: { confirm: t(:confirm_delete) }
 
 .form-actions
-  = link_to 'Новая колода', new_deck_path, class: 'btn btn-primary'
+  = link_to t(:deck_new), new_deck_path, class: 'btn btn-primary'

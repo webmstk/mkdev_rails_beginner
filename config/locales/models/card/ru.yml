@@ -10,8 +10,8 @@ ru:
         translated_text: Перевод
         review_date: Дата пересмотра
         image: Картинка
-        remove_image: удалить картинку
         deck_id: Колода
+        remove_image: удалить картинку
     errors:
       models:
         card:
@@ -35,6 +35,27 @@ ru:
         original_text: Текст
         translated_text: Перевод
         review_date: Дата пересмотра
+
+  card_new: Новая карточка
+  card_edit: Редактирование карточки
+  card_add: Добавление карточки
+  card_updated: Карточка успешно обновлена
+  card_deleted: Карточка удалена
+  card_change_no_permission: Нельзя изменять чужие карточки!
+  card_delete_no_permission: Нельзя удалить чужую карточку!
+  translation_correct: Правильно
+  translation_cannot_be_blank: Перевод не может быть пустым
+  original_text: Текст
+  text_typed: А ты ввёл
+  typo_happend: Опечатка, однако!
+  take_new_card: Учи следующую карточку, лопух!
+  check_translation: Проверить перевод
+
+  cards:
+    index:
+      welcome: Первый в мире удобный менеджер флеш-карточек. Именно так.
+    random:
+      relax: Отдыхай, ты проработал все карточки на сегодня.
 
   simple_form:
     placeholders:

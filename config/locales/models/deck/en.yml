@@ -1,0 +1,32 @@
+en:
+  activerecord:
+    attributes:
+      deck:
+        name: Name
+    errors:
+      models:
+        deck:
+          attributes:
+            name:
+              blank: Deck name can't be blank
+            user_id:
+              blank: Deck should belong to user
+  helpers:
+    submit:
+      deck:
+        create: Create deck
+        update: Edit deck
+
+  deck_deleted: Deck deleted
+  deck_not_deleted: Deck not deleted
+  deck_created: Deck created
+  deck_change_no_permission: It's not your deck!
+  deck_delete_no_permission: It's not your deck!
+  deck_edit: Edit deck
+  deck_add: Add deck
+  deck_new: New deck
+
+  decks:
+    index:
+      deck: Deck
+      current: Current

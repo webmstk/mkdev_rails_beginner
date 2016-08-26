@@ -22,7 +22,7 @@ class CardsController < ApplicationController
       end
     else
       redirect_to new_card_path
-      flash[:error] = 'Залогиньтесь!'
+      flash[:error] = t :login_message
     end
   end
 
@@ -34,31 +34,31 @@ class CardsController < ApplicationController
       if @card.user_id == current_user.id
         if @card.update(card_params)
           redirect_to edit_card_path(@card)
-          flash[:notice] = 'Данные успешно обновлены'
+          flash[:notice] = t :card_updated
         else
           render :edit
         end
       else
         redirect_to edit_card_path(@card)
-        flash[:error] = 'Нельзя изменять чужие карточки!'
+        flash[:error] = t :card_change_no_permission
       end
     else
       redirect_to edit_card_path(@card)
-      flash[:error] = 'Залогиньтесь!'
+      flash[:error] = t :login_message
     end
   end
 
   def destroy
     if logged_in?
       if @card.user_id == current_user.id
-        redirect_to cards_path, notice: 'Карточка удалена' if @card.destroy
+        redirect_to cards_path, notice: t(:card_deleted) if @card.destroy
       else
         redirect_to cards_path
-        flash[:error] = 'Нельзя удалить чужую карточку!'
+        flash[:error] = t :card_delete_no_permission
       end
     else
       redirect_to cards_path
-      flash[:error] = 'Залогиньтесь!'
+      flash[:error] = t :login_message
     end
   end
 
@@ -82,25 +82,25 @@ class CardsController < ApplicationController
 
     if @card.translation_correct? params[:card][:translated_text]
       @card.translated_correct
-      redirect_to random_cards_path, notice: 'Правильно'
+      redirect_to random_cards_path, notice: t(:translation_correct)
     elsif @card.typo_in_translation? params[:card][:translated_text]
       @card.translated_correct
       redirect_to random_cards_path
-      flash[:notice] = "<b>Текст:</b> #{@card.original_text}<br />
-                       <b>Правильно:</b> #{@card.translated_text}<br />
-                       <b>А ты ввёл:</b> #{params[:card][:translated_text]}<br /><br />
-                       Опечатка, однако!"
+      flash[:notice] = "<b>#{t :original_tex}:</b> #{@card.original_text}<br />
+                       <b>#{t :translation_correct}:</b> #{@card.translated_text}<br />
+                       <b>#{t :text_typed}:</b> #{params[:card][:translated_text]}<br /><br />
+                       #{t :typo_happend}"
     else
       if params[:card][:translated_text].empty?
-        flash.now[:error] = 'Поле не может быть пустым'
+        flash.now[:error] = t(:translation_cannot_be_blank)
         render :random
       else
         @card.attempts_recalc
         redirect_to random_cards_path
-        flash[:error] = "<b>Текст:</b> #{@card.original_text}<br />
-                         <b>Правильно:</b> #{@card.translated_text}<br />
-                         <b>А ты ввёл:</b> #{params[:card][:translated_text]}<br /><br />
-                         Учи следующую карточку, лопух!"
+        flash[:error] = "<b>#{t :original_text}:</b> #{@card.original_text}<br />
+                         <b>#{t :translation_correct}:</b> #{@card.translated_text}<br />
+                         <b>#{t :text_typed}:</b> #{params[:card][:translated_text]}<br /><br />
+                         #{t :take_new_card}"
       end
     end
   end

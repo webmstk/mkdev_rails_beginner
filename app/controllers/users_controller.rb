@@ -29,7 +29,7 @@ class UsersController < ApplicationController
 
   def update
     if @user.update(user_params)
-      redirect_to edit_user_path, notice: 'Данные успешно обновлены'
+      redirect_to edit_user_path, notice: t(:user_update)
     else
       render :edit
     end
@@ -44,11 +44,17 @@ class UsersController < ApplicationController
 
   private
 
-  def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :old_password)
-  end
-
   def load_user
     @user = User.find(params[:id])
+  end
+
+  def user_params
+    params.require(:user).permit(
+      :email,
+      :password,
+      :password_confirmation,
+      :old_password,
+      :locale
+    )
   end
 end

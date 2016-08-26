@@ -12,16 +12,16 @@ feature 'delay review_date' do
 
     Card::REVIEW_DELAY_DAYS.each do |success, delay|
       visit random_cards_path
-      fill_in 'Перевод', with: card.translated_text
-      click_on 'Проверить перевод'
+      fill_in t('helpers.labels.card.translated_text'), with: card.translated_text
+      click_on t(:check_translation)
 
       Timecop.freeze(delay.days.from_now - 1.hour)
       visit random_cards_path
-      expect(page).to have_text 'Отдыхай, ты проработал все карточки на сегодня.'
+      expect(page).to have_text t('cards.random.relax')
 
       Timecop.freeze(delay.days.from_now)
       visit random_cards_path
-      expect(page).not_to have_text 'Отдыхай, ты проработал все карточки на сегодня.'
+      expect(page).not_to have_text t('cards.random.relax')
     end
 
 
@@ -29,25 +29,25 @@ feature 'delay review_date' do
 
     visit random_cards_path
     (Card::GUESS_ATTEMPTS + 1).times do |i|
-      fill_in 'Перевод', with: 'asdfsd'
-      click_on 'Проверить перевод'
+      fill_in t('helpers.labels.card.translated_text'), with: 'asdfsd'
+      click_on t(:check_translation)
     end
 
 
     # отвечаем правильно
 
-    fill_in 'Перевод', with: card.translated_text
-    click_on 'Проверить перевод'
+    fill_in t('helpers.labels.card.translated_text'), with: card.translated_text
+    click_on t(:check_translation)
 
 
     # И проверяем, что карточка отложена на минимальный срок
 
     Timecop.freeze(Card::REVIEW_DELAY_DAYS.values.first.days.from_now - 1.hour)
     visit random_cards_path
-    expect(page).to have_text 'Отдыхай, ты проработал все карточки на сегодня.'
+    expect(page).to have_text t('cards.random.relax')
 
     Timecop.freeze(Card::REVIEW_DELAY_DAYS.values.first.days.from_now)
     visit random_cards_path
-    expect(page).not_to have_text 'Отдыхай, ты проработал все карточки на сегодня.'
+    expect(page).not_to have_text t('cards.random.relax')
   end
 end

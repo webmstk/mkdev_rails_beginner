@@ -20,3 +20,13 @@ ru:
   deck_deleted: Колода удалена
   deck_not_deleted: Не получилось удалить колоду
   deck_created: Колода создана
+  deck_change_no_permission: Вы не можете редактировать чужую колоду!
+  deck_delete_no_permission: Вы не можете удалить чужую колоду!
+  deck_edit: Редактирование колоды
+  deck_add: Добавление колоды
+  deck_new: Новая колода
+
+  decks:
+    index:
+      deck: Колода
+      current: Текущая

@@ -1,4 +1,4 @@
-h3 Пора учиться!
-p Карточек к пересмотру: #{@cards.count}
+h3 = t('notification_mailer.pending_cards.head')
+p #{t('notification_mailer.pending_cards.cards_to_review')}: #{@cards.count}
 
-= link_to 'за дело!', root_url
+= link_to t('notification_mailer.pending_cards.go_ahead'), root_url

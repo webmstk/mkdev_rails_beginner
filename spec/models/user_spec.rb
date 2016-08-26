@@ -5,6 +5,7 @@ RSpec.describe User, type: :model do
   it { should have_many :decks }
   it { should have_many :authentications }
   it { should validate_presence_of :email }
+  it { should validate_presence_of :locale }
   it { should allow_value('test@mail.ru').for :email }
   it { should_not allow_value('asdf').for :email }
 

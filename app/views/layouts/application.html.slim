@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title Флэшкарточкер
+    title = t '.title'
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
     = csrf_meta_tags
@@ -12,16 +12,27 @@ html
       nav.navbar.navbar-default.my-navbar
         .container-fluid
           .navbar-header
-            = link_to 'Флэшкарточкер', root_path, class: 'navbar-brand'
+            = link_to t('.title'), root_path, class: 'navbar-brand'
+
+            - unless current_user
+              ul.nav.navbar-nav
+                - I18n.available_locales.each do |loc|
+                  - if session[:locale] == loc
+                    li.active
+                      = link_to loc, "?locale=#{loc}"
+                  - else
+                    li
+                      = link_to loc, "?locale=#{loc}"
+
           #navbar.navbar-collapse.collapse
             ul.nav.navbar-nav.navbar-right
               - if logged_in?
                 li
-                  = link_to 'Колоды', decks_path
+                  = link_to t('.menu_decks'), decks_path
                 li
-                  = link_to 'Все карточки', cards_path
+                  = link_to t('.menu_cards'), cards_path
                 li
-                  = link_to 'Добавить карточку', new_card_path
+                  = link_to t('.menu_add_card'), new_card_path
 
       .row
         .col-md-8
@@ -33,14 +44,14 @@ html
             = link_to logout_path, method: :post do
               .glyphicon.glyphicon-log-out
           - else
-            = link_to 'Регистрация', new_user_path
+            = link_to t('.register'), new_user_path
             = ' '
-            = link_to 'Вход', login_path
+            = link_to t('.log_in'), login_path
 
 
       section#container
         header.clearfix
-          h1 Флэшкарточкер
+          h1 = t '.title'
 
         - flash.each do |name, msg|
           div class="alert alert-#{name == 'notice' ? 'success' : 'danger'}"

@@ -11,15 +11,14 @@ class User < ActiveRecord::Base
 
   accepts_nested_attributes_for :authentications
 
-  validates :email, presence: true,
-                    uniqueness: { case_sensitive: false },
+  validates :email, :locale, presence: true
+  validates :email, uniqueness: { case_sensitive: false },
                     format: { with: /.+@.+\..+/,
                               message: I18n.t('activerecord.errors.models.user.attributes.email.format') }
   validates :password, confirmation: true, if: -> { new_record? || changes[:crypted_password] }
   validates :password_confirmation, presence: true, if: -> { new_record? || changes[:crypted_password] }
   validate :check_old_password, on: :update, if: -> { new_record? || changes[:crypted_password] }
 
-  # scope :with_pending_cards, -> { User.where('users.id IN (?)', Card.review.where.not(user_id: nil).map(&:user_id).uniq) }
   scope :with_pending_cards, -> { User.joins(:cards).merge(Card.review) }
 
   def check_old_password
