@@ -28,6 +28,7 @@ en:
           old_password: Old password
           password: New password
           password_confirmation: Confirm new password
+          locale: Language
         new:
           email: Email
           password: Password

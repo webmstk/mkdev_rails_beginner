@@ -28,7 +28,10 @@ ru:
           old_password: Старый пароль
           password: Новый пароль
           password_confirmation: Подтвердите новый пароль
+          locale: Язык
         new:
           email: Email
           password: Пароль
           password_confirmation: Подтверждение пароля
+
+  user_update: Настройки сохранены
