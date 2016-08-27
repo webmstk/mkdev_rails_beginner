@@ -86,10 +86,7 @@ class CardsController < ApplicationController
     elsif @card.typo_in_translation? params[:card][:translated_text]
       @card.translated_correct
       redirect_to random_cards_path
-      flash[:notice] = "<b>#{t :original_tex}:</b> #{@card.original_text}<br />
-                       <b>#{t :translation_correct}:</b> #{@card.translated_text}<br />
-                       <b>#{t :text_typed}:</b> #{params[:card][:translated_text]}<br /><br />
-                       #{t :typo_happend}"
+      flash[:notice] = "#{translation_notice} #{t :typo_happend}"
     else
       if params[:card][:translated_text].empty?
         flash.now[:error] = t(:translation_cannot_be_blank)
@@ -97,10 +94,7 @@ class CardsController < ApplicationController
       else
         @card.attempts_recalc
         redirect_to random_cards_path
-        flash[:error] = "<b>#{t :original_text}:</b> #{@card.original_text}<br />
-                         <b>#{t :translation_correct}:</b> #{@card.translated_text}<br />
-                         <b>#{t :text_typed}:</b> #{params[:card][:translated_text]}<br /><br />
-                         #{t :take_new_card}"
+        flash[:error] = "#{translation_notice} #{t :take_new_card}"
       end
     end
   end
@@ -120,5 +114,11 @@ class CardsController < ApplicationController
       :deck_id,
       :review_date
     )
+  end
+
+  def translation_notice
+    "<b>#{t :original_text}:</b> #{@card.original_text}<br />
+     <b>#{t :translation_correct}:</b> #{@card.translated_text}<br />
+     <b>#{t :text_typed}:</b> #{params[:card][:translated_text]}<br /><br />"
   end
 end
